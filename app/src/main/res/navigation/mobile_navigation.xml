@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="projetbe.romelemma.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="projetbe.romelemma.ui.map.MapFragment"
+        android:label="@string/nav_map"
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="projetbe.romelemma.ui.profile.ProfileFragment"
+        android:label="@string/nav_profile"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/navigation_prescriptions"
+        android:name="projetbe.romelemma.ui.prescriptions.PrescriptionsFragment"
+        android:label="@string/nav_prescriptions"
+        tools:layout="@layout/prescriptions_fragment" />
+    <fragment
+        android:id="@+id/navigation_shop"
+        android:name="projetbe.romelemma.ui.shop.ShopFragment"
+        android:label="@string/nav_shop"
+        tools:layout="@layout/shop_fragment" />
+
+</navigation>
