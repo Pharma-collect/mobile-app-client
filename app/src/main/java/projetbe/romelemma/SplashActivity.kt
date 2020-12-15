@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
         // Switching Activity at the end
         Handler().postDelayed({
             startActivity(
-                Intent(this@SplashActivity, MainActivity::class.java)
+                Intent(this@SplashActivity, LoginActivity::class.java)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
 //            customType(this@SplashActivity, "bottom-to-up")
