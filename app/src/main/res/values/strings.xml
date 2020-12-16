@@ -34,10 +34,9 @@
     <string name="refresh">Refresh</string>
     <string name="confirmButton">Confirm</string>
     <string name="title_activity_maps">Map</string>
-    <string name="pharmacy">Pharmacy / drugstore</string>
     <string name="hospital">Hospital / health center</string>
     <string name="pharmacyShow">Pharmacy</string>
-    <string name="hospitalShow">Hospital / Health center</string>
+    <string name="hospitalShow">Hospital</string>
     <string name="place_name">Place name</string>
     <string name="place_address">Place address</string>
     <string name="place_hours">Place open hours</string>
@@ -126,7 +125,14 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="disconnect">Disconnect</string>
+    <string name="nearby_pharmacy">Pharmacies close to you</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Google Maps API -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBqVnzSvxBQIut6yRpVl0ISrXPwbZfxHhU</string>
+    <string name="browser_key">AIzaSyAOgLYcZxKFUyjrFvv58zNg6_AViWAFwpc</string>
+
+
 </resources>
