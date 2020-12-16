@@ -24,15 +24,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-plugins {
-  id "org.sonarqube" version "3.0"
-}
-
-sonarqube {
-  properties {
-    property "sonar.projectKey", "Pharma-collect_mobile-app-client"
-    property "sonar.organization", "pharma-collect"
-    property "sonar.host.url", "https://sonarcloud.io"
-  }
-}
