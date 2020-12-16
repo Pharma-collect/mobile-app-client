@@ -83,6 +83,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     fun nearbyPlace(){
         //mMap.clear()
         val url = getUrl(latitude, longitude)
+        Log.d("URL", url)
         mService.getNearbyPlaces(url)
             .enqueue(object : Callback<RootObject> {
                 override fun onResponse(call: Call<RootObject>?, response: Response<RootObject>?) {
@@ -114,9 +115,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun getUrl(latitude: Double, longitude: Double): String {
+        Log.d("Latitude getUrl", latitude.toString())
+        Log.d("Longitude getUrl", longitude.toString())
         var googlePlaceUrl = StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json")
         googlePlaceUrl.append("?location=$latitude,$longitude")
-        googlePlaceUrl.append("&radius=10000&type=\"pharmacy\"")
+        googlePlaceUrl.append("&radius=10000&type=pharmacy")
         googlePlaceUrl.append("&key=AIzaSyAOgLYcZxKFUyjrFvv58zNg6_AViWAFwpc")
         return googlePlaceUrl.toString()
     }
@@ -137,6 +140,40 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 val markerOptions = MarkerOptions().position(latLng).title("Your position")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 mMarker = mMap.addMarker(markerOptions)
+
+                Log.d("Latitude buildLocation", latitude.toString())
+                Log.d("Longitude buildLocation", longitude.toString())
+
+                val url = getUrl(latitude, longitude)
+                Log.d("URL", url)
+                mService.getNearbyPlaces(url)
+                    .enqueue(object : Callback<RootObject> {
+                        override fun onResponse(call: Call<RootObject>?, response: Response<RootObject>?) {
+                            currentPlace = response!!.body()!!
+                            if(response!!.isSuccessful){
+                                for(i in 0 until response.body()!!.results!!.size){
+                                    val markerOptionss = MarkerOptions()
+                                    val googlePlace = response.body()!!.results!![i]
+                                    val lat = googlePlace.geometry!!.location!!.lat
+                                    val lng = googlePlace.geometry!!.location!!.lng
+                                    val placeName = googlePlace.name
+                                    val latiLng = LatLng(lat, lng)
+
+                                    markerOptionss.position(latiLng)
+                                    markerOptionss.title(placeName)
+                                    markerOptionss.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                    markerOptionss.snippet(i.toString())
+
+                                    mMap.addMarker(markerOptionss)
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latiLng))
+                                    mMap.animateCamera(CameraUpdateFactory.zoomTo(13f))
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<RootObject>, t: Throwable) {
+                        }
+                    })
 
                 //Move camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
