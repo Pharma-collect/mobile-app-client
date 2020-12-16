@@ -1,6 +1,7 @@
 package projetbe.romelemma.ui.map
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -19,12 +20,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.map_fragment.*
+
 import projetbe.romelemma.R
 import projetbe.romelemma.dataClass.RootObject
 import projetbe.romelemma.services.GoogleApiService
 import projetbe.romelemma.services.IGoogleApiService
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -199,6 +200,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.setOnMarkerClickListener { marker ->
+            if(marker.snippet != null) {
+                GoogleApiService.currentResult = currentPlace.results!![Integer.parseInt(marker.snippet)]
+                val intent = Intent(activity, ViewPlace::class.java)
+                startActivity(intent)
+            }
+            true
+        }
     }
 
 }
