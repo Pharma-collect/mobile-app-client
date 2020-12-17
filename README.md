@@ -73,30 +73,25 @@ The location is set thanks to google maps API localisation and google maps API n
 
 :exclamation: Lets refer to the project board to get more precision :exclamation:
 
-### Common parts
+### Common parts :heavy_check_mark:
 
 - Animation page / Splash
 - Choice menu
 - SignUp
 - Login
 
-The common part is ended :white_check_mark: 
-Only some changes about the design should be done
+The common part is ended, only some changes about the design should be done :white_check_mark: 
 
 Extract of the app's common parts :
 
 ![](./app/src/main/res/doc/splash.png)
-*Animation while enter into the app*
 ![](./app/src/main/res/doc/choice.png)
-*Choice page*
 ![](./app/src/main/res/doc/login.png)
-*Login page*
 ![](./app/src/main/res/doc/signup.png)
-*Signup page*
 
-### E-Shop
+### E-Shop :heavy_check_mark:
 
-:heavy_check_mark: Done :
+Done :
 - Recup / Display of products
 - Products description
 - Save items in the shopping cart
@@ -104,18 +99,15 @@ Extract of the app's common parts :
 - Menu/navbar working
 
 ![](./app/src/main/res/doc/add_two.png)
-*Add to shopping cart*
 ![](./app/src/main/res/doc/add.png)
 
-### Click&Collect
+### Click&Collect :heavy_check_mark:
 
-:heavy_check_mark: Done :
 
+Done :
 - Nearby places
 - Nearby pharmacies detail (possibility to show on maps)
 - Menu/navbar working
 
 ![](./app/src/main/res/doc/nearby.png)
-*Nearby places*
 ![](./app/src/main/res/doc/details.png)
-*Place detail*
