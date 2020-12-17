@@ -1,13 +1,10 @@
 # Pharma-collect mobile app
 
-![](./app/src/main/res/drawable/my_pharma.png)
-
 Pharma collect is a mobile app which allow to send prescription/order to a particular pharmacy and pick out it few moment later into a fully secure box. Pharma collect is by the way cut in two different applications :
 - Pharma-collect Client
 - Pharma-collect Pro
 
-![Architecture of Pharma-collect mobile](./app/src/main/res/doc/archi.png)
-
+![](./app/src/main/res/doc/archi.png) 
 
 # Pharma-Collect Client
 
@@ -25,15 +22,15 @@ The client part will allow the user to :
 
 ## Technologies
 
-The app is made with Kotlin and Java languages.
-We work with fragment and mvvm technology (Model-View-ViewModel)
+The app is made with **Kotlin** and **Java** languages.
+We work with fragment and **mvvm** technology (Model-View-ViewModel)
 
 ![](./app/src/main/res/doc/mvvm.png)
 
 
-The application is connected to a server (see previous drawing). The application is connected to it by means of an http request (in fact https to obtain more secure transactions). In addition, the application and the most sensitive information are encrypted and cannot be violated.
+The application is linked to a server (see previous drawing). We are able to talk with it thanks to an http request (in fact we have **https** request to get safer transactions). In addition, the most sensitive information are encrypted with **BCrypt** technolgy and cannot be violated.
 
-To be connected with the locker, Pharma-collect will use the QR code technology. It will allow us to verify the identity of the user in front of the box (informations verified by the locker connected to the server).
+To be connected with the locker, Pharma-collect will use the **QR code technology**. It will allow us to verify the identity of the user in front of the box (informations verified by the locker connected to the server).
 
 
 
@@ -52,16 +49,7 @@ Possibilities of the E-shop:
 - Placing an order
 - Payment
 
-```mermaid
-graph LR
-A[App's home page] --> B((Shop))
-C{Sign up} --> K
-K --> C
-B --> L[Visit of the shop]
-B --> D[Visit of the shop]
-K --> F[Place orders]
-D --> K{Auth}
-```
+![](./app/src/main/res/doc/mermaid_shop.png)
 
 An e-shop is also set up on the web to allow users to access the shop of their favourite pharmacies on any platform. It's based on the same operation.
 
@@ -79,59 +67,55 @@ Furthermore, the user can do lot of actions on this side of the app, such as :
 
 The location is set thanks to google maps API localisation and google maps API nearby places
 
-```mermaid
-graph LR
-A[App's home page] --> B{Login}
-B --> I[Sign up]
-I --> B
-B --> C((C&Co))
-C --> D[Profile page]
-C --> E[Nearby pharmacies]
-C --> F[Send a prescription]
-C --> G[History of prescription]
-C --> H[Access to the shop already auth]
-```
+![](./app/src/main/res/doc/mermaid_cac.png)
 
 ## State of progress
 
-Lets refer to the project board to get more precision
+:exclamation: Lets refer to the project board to get more precision :exclamation:
 
 ### Common parts
 
-Done :
 - Animation page / Splash
 - Choice menu
 - SignUp
 - Login
 
-The common part is ended even if some design modification have to be done
+The common part is ended :white_check_mark: 
+Only some changes about the design should be done
 
 Extract of the app's common parts :
 
-![Animation while enter into the app](./app/src/main/res/doc/splash.png)
-![Choice page](./app/src/main/res/doc/choice.png)
-![Login page](./app/src/main/res/doc/login.png)
-![Signup page](./app/src/main/res/doc/signup.png)
+![](./app/src/main/res/doc/splash.png)
+*Animation while enter into the app*
+![](./app/src/main/res/doc/choice.png)
+*Choice page*
+![](./app/src/main/res/doc/login.png)
+*Login page*
+![](./app/src/main/res/doc/signup.png)
+*Signup page*
 
 ### E-Shop
 
-Done :
+:heavy_check_mark: Done :
 - Recup / Display of products
 - Products description
 - Save items in the shopping cart
 - Access to the shopping cart
 - Menu/navbar working
 
-![Add to shopping cart](./app/src/main/res/doc/add_two.png)
+![](./app/src/main/res/doc/add_two.png)
+*Add to shopping cart*
 ![](./app/src/main/res/doc/add.png)
 
 ### Click&Collect
 
-Done :
+:heavy_check_mark: Done :
 
 - Nearby places
 - Nearby pharmacies detail (possibility to show on maps)
 - Menu/navbar working
 
-![Nearby places](./app/src/main/res/doc/nearby.png)
-![Place detail](./app/src/main/res/doc/details.png)
+![](./app/src/main/res/doc/nearby.png)
+*Nearby places*
+![](./app/src/main/res/doc/details.png)
+*Place detail*
