@@ -7,6 +7,20 @@
     android:background="#272B2F"
     tools:context=".SplashActivity">
 
+    <ImageView
+        android:id="@+id/headertitle_splash"
+        android:layout_width="360dp"
+        android:layout_height="266dp"
+        android:layout_above="@+id/iv_beat"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/mypharma_blanc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/iv_beat"
         android:layout_width="wrap_content"
@@ -16,22 +30,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="3dp"
         android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="127dp"
+        android:layout_marginBottom="200dp"
         android:adjustViewBounds="true"
         android:src="@drawable/pill" />
 
-
-    <ImageView
-        android:id="@+id/iv_myPharma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_beat"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="26dp"
-        android:src="@drawable/mypharma_blanc" />
 
 </RelativeLayout>
