@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -53,6 +55,13 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         sConfirm = findViewById<View>(R.id.password_confirm) as EditText
         username = findViewById<View>(R.id.username) as EditText
         dateOfBirth.setText("Your date of birth")
+
+        val btt = AnimationUtils.loadAnimation(this, R.anim.btt)
+        val formulaire = findViewById<ConstraintLayout>(R.id.formulaire)
+        val button_sign = findViewById<Button>(R.id.button_test)
+        formulaire.startAnimation(btt)
+        button_sign.startAnimation(btt)
+
         val signup = findViewById<Button>(R.id.button_test)
         val picker_view = findViewById<Button>(R.id.button_picker)
         picker_view.setOnClickListener { showDatePickerDialog() }

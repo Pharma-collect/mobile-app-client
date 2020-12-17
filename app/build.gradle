@@ -78,4 +78,7 @@ dependencies {
 
     // Easy Permissions
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    //Round images view
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 }

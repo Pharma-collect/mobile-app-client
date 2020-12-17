@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -20,6 +23,18 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val btt = AnimationUtils.loadAnimation(this, R.anim.btt)
+        val etMail = findViewById<EditText>(R.id.etMail)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val btValidateLogin = findViewById<Button>(R.id.btValidateLogin)
+        val btSignUp = findViewById<Button>(R.id.btSignUp)
+        val clickToCreate = findViewById<TextView>(R.id.clickToCreate)
+        etMail.startAnimation(btt)
+        etPassword.startAnimation(btt)
+        btValidateLogin.startAnimation(btt)
+        btSignUp.startAnimation(btt)
+        clickToCreate.startAnimation(btt)
     }
 
     private fun forgotPassword(username: EditText){

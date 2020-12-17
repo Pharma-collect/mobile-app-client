@@ -7,6 +7,20 @@
     android:background="@color/background"
     tools:context=".LoginActivity">
 
+    <ImageView
+        android:id="@+id/headertitle_login"
+        android:layout_width="360dp"
+        android:layout_height="266dp"
+        android:layout_above="@+id/iv_beat"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/mypharma_blanc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="wrap_content"
@@ -50,18 +64,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.629" />
 
-    <TextView
-        android:id="@+id/tvForgotPAssword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mdpForgot"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btValidateLogin"
-        app:layout_constraintStart_toStartOf="@+id/btValidateLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btValidateLogin"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/btSignUp"
         android:layout_width="160dp"
@@ -75,8 +77,7 @@
         app:layout_constraintEnd_toEndOf="@+id/btValidateLogin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btValidateLogin"
-        app:layout_constraintTop_toBottomOf="@+id/tvForgotPAssword"
-        app:layout_constraintVertical_bias="0.245"
+        app:layout_constraintTop_toBottomOf="@+id/btValidateLogin"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -92,13 +93,4 @@
         app:layout_constraintTop_toBottomOf="@+id/btSignUp"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="104dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/my_pharma" />
 </androidx.constraintlayout.widget.ConstraintLayout>
