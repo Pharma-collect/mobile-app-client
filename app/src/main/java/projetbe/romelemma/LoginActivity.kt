@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -24,17 +25,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val btt = AnimationUtils.loadAnimation(this, R.anim.btt)
-        val etMail = findViewById<EditText>(R.id.etMail)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
-        val btValidateLogin = findViewById<Button>(R.id.btValidateLogin)
-        val btSignUp = findViewById<Button>(R.id.btSignUp)
-        val clickToCreate = findViewById<TextView>(R.id.clickToCreate)
-        etMail.startAnimation(btt)
-        etPassword.startAnimation(btt)
-        btValidateLogin.startAnimation(btt)
-        btSignUp.startAnimation(btt)
-        clickToCreate.startAnimation(btt)
+        val btt = AnimationUtils.loadAnimation(this, R.anim.btt2)
+        val layout = findViewById<ConstraintLayout>(R.id.layout)
+        layout.startAnimation(btt)
     }
 
     private fun forgotPassword(username: EditText){

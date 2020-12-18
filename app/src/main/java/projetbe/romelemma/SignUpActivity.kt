@@ -56,11 +56,9 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         username = findViewById<View>(R.id.username) as EditText
         dateOfBirth.setText("Your date of birth")
 
-        val btt = AnimationUtils.loadAnimation(this, R.anim.btt)
-        val formulaire = findViewById<ConstraintLayout>(R.id.formulaire)
-        val button_sign = findViewById<Button>(R.id.button_test)
+        val btt = AnimationUtils.loadAnimation(this, R.anim.btt2)
+        val formulaire = findViewById<ConstraintLayout>(R.id.layout)
         formulaire.startAnimation(btt)
-        button_sign.startAnimation(btt)
 
         val signup = findViewById<Button>(R.id.button_test)
         val picker_view = findViewById<Button>(R.id.button_picker)
