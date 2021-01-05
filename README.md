@@ -4,7 +4,7 @@ Pharma collect is a mobile app which allow to send prescription/order to a parti
 - Pharma-collect Client
 - Pharma-collect Pro
 
-![](./app/src/main/res/drawable/doc/archi_doc.png) 
+![](./app/src/main/res/drawable/archi_doc.png) 
 
 # Pharma-Collect Client
 
@@ -25,7 +25,7 @@ The client part will allow the user to :
 The app is made with **Kotlin** and **Java** languages.
 We work with fragment and **mvvm** technology (Model-View-ViewModel)
 
-![](./app/src/main/res/drawable/doc/mvvm_doc.png)
+![](./app/src/main/res/drawable/mvvm_doc.png)
 
 
 The application is linked to a server (see previous drawing). We are able to talk with it thanks to an http request (in fact we have **https** request to get safer transactions). In addition, the most sensitive information are encrypted with **BCrypt** technolgy and cannot be violated.
@@ -49,7 +49,7 @@ Possibilities of the E-shop:
 - Placing an order
 - Payment
 
-![](./app/src/main/res/drawable/doc/mermaid_shop.png)
+![](./app/src/main/res/drawable/mermaid_shop.png)
 
 An e-shop is also set up on the web to allow users to access the shop of their favourite pharmacies on any platform. It's based on the same operation.
 
@@ -67,7 +67,7 @@ Furthermore, the user can do lot of actions on this side of the app, such as :
 
 The location is set thanks to google maps API localisation and google maps API nearby places
 
-![](./app/src/main/res/drawable/doc/mermaid_cac.png)
+![](./app/src/main/res/drawable/mermaid_cac.png)
 
 ## State of progress
 
@@ -84,10 +84,10 @@ The common part is ended, only some changes about the design should be done :whi
 
 Extract of the app's common parts :
 
-![](./app/src/main/res/drawable/doc/splash_doc.png)
-![](./app/src/main/res/drawable/doc/choice_doc.png)
-![](./app/src/main/res/drawable/doc/login_doc.png)
-![](./app/src/main/res/drawable/doc/signup_doc.png)
+![](./app/src/main/res/drawable/splash_doc.png)
+![](./app/src/main/res/drawable/choice_doc.png)
+![](./app/src/main/res/drawable/login_doc.png)
+![](./app/src/main/res/drawable/signup_doc.png)
 
 ### E-Shop :heavy_check_mark:
 
@@ -98,8 +98,8 @@ Done :
 - Access to the shopping cart
 - Menu/navbar working
 
-![](./app/src/main/res/drawable/doc/add_two.png)
-![](./app/src/main/res/drawable/doc/add_un.png)
+![](./app/src/main/res/drawable/add_two.png)
+![](./app/src/main/res/drawable/add_un.png)
 
 ### Click&Collect :heavy_check_mark:
 
@@ -109,5 +109,5 @@ Done :
 - Nearby pharmacies detail (possibility to show on maps)
 - Menu/navbar working
 
-![](./app/src/main/res/drawable/doc/nearby_doc.png)
-![](./app/src/main/res/drawable/doc/details_doc.png)
+![](./app/src/main/res/drawable/nearby_doc.png)
+![](./app/src/main/res/drawable/details_doc.png)
