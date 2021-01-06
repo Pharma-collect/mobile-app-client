@@ -1,6 +1,7 @@
 package projetbe.romelemma
 
 import android.os.Bundle
+import android.util.JsonToken
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import projetbe.romelemma.ui.map.MapFragment
 class MainActivity : AppCompatActivity() {
 
     lateinit var id: String
+    lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         var intent = intent
         id = intent.getStringExtra("id").toString()
-        Log.d("MainActivity", id)
+        token = intent.getStringExtra("token").toString()
     }
 }
