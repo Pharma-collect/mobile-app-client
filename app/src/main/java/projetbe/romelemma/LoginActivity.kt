@@ -2,6 +2,7 @@ package projetbe.romelemma
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
@@ -15,12 +16,16 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
 import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
 import org.json.JSONObject
+import projetbe.romelemma.services.MyRepository
 
 class LoginActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
     }
+
+    private val repository: MyRepository = MyRepository()
 
     private fun forgotPassword(username: EditText){
         if (username.text.toString().isEmpty()){
@@ -31,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Enter a valid email", Toast.LENGTH_SHORT).show()
             return
         }
-
     }
 
     private fun logRequest(
@@ -43,9 +47,13 @@ class LoginActivity : AppCompatActivity() {
         val stringRequest: StringRequest =
                 object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                     override fun onResponse(response: String?) {
-                        var jsonResponse: JSONObject = JSONObject(response)
-                        if (jsonResponse["success"] == true) {
+                        var jsonSuccess = JSONObject(response)
+                        var jsonResponse = JSONObject(jsonSuccess.get("result").toString())
+                        if (jsonSuccess["success"] == true) {
+                            Log.d("Request Response", jsonSuccess.toString())
+                            Log.d("Request Response", jsonResponse.toString())
                             intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            intent.putExtra("id", jsonResponse["id"].toString())
                             startActivity(intent)
                         }else{
                             Toast.makeText(this@LoginActivity, "Wrong username or password", Toast.LENGTH_LONG).show()
