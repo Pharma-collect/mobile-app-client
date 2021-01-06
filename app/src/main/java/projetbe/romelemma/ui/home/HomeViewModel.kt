@@ -2,7 +2,6 @@ package projetbe.romelemma.ui.home
 
 import android.app.Application
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +15,11 @@ class HomeViewModel(
         application: Application
 ) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
-    private val _welcomeText = MutableLiveData<String>()
+    private val id: String = "0"
+
+    private val _welcomeText = MutableLiveData<String>().apply {
+        value = "welcome back user $id"
+    }
     val welcomeText: LiveData<String> = _welcomeText
 
     var user: User = User()

@@ -8,12 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.GoogleMap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import projetbe.romelemma.R
 
-class HomeFragment : Fragment(), CoroutineScope by MainScope() {
+class HomeFragment : Fragment(){
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -25,8 +22,8 @@ class HomeFragment : Fragment(), CoroutineScope by MainScope() {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = root.findViewById(R.id.tvWelcomeBack)
+        homeViewModel.welcomeText.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

@@ -6,9 +6,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,9 +16,9 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
-import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
 import org.json.JSONObject
 import projetbe.romelemma.services.MyRepository
+import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
 
 class LoginActivity : AppCompatActivity() {
 
