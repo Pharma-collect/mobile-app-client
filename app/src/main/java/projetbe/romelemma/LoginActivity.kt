@@ -2,6 +2,7 @@ package projetbe.romelemma
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -51,9 +52,15 @@ class LoginActivity : AppCompatActivity() {
         val stringRequest: StringRequest =
                 object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                     override fun onResponse(response: String?) {
-                        var jsonResponse: JSONObject = JSONObject(response)
-                        if (jsonResponse["success"] == true) {
+                        if (response != null)
+                            Log.d("Request Response", response)
+                        var jsonSuccess = JSONObject(response)
+                        var jsonResponse = JSONObject(jsonSuccess["result"].toString())
+                        if (jsonSuccess["success"] == true) {
+                            Log.d("Request Response", jsonSuccess.toString())
+                            Log.d("Request Response", jsonResponse.toString())
                             intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            intent.putExtra("id", jsonResponse["id"].toString())
                             startActivity(intent)
                         }else{
                             Toast.makeText(this@LoginActivity, "Wrong username or password", Toast.LENGTH_LONG).show()
