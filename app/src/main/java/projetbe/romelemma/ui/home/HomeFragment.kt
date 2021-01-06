@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 import projetbe.romelemma.R
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CoroutineScope by MainScope() {
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -27,7 +29,6 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-
         return root
     }
 }
