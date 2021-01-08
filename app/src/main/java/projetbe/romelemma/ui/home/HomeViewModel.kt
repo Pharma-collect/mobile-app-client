@@ -2,6 +2,8 @@ package projetbe.romelemma.ui.home
 
 import android.app.Application
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,9 +31,5 @@ class HomeViewModel(
             _welcomeText.value = "Welcome Back ${user.name} ${user.lastname}"
             Log.d("HomeVM", "Welcome Back ${user.username}")
         }
-    }
-
-    fun onButtonClicked(){
-        Log.d("HomeVM", "button was clicked")
     }
 }

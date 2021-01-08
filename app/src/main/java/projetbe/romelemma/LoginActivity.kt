@@ -1,6 +1,5 @@
 package projetbe.romelemma
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
@@ -10,16 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
 import projetbe.romelemma.repository.MyRepository
 import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
-import projetbe.romelemma.services.FileService
 
 class LoginActivity : AppCompatActivity() {
 

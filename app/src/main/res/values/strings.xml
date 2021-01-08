@@ -135,4 +135,5 @@
     <!-- Google Maps API -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBqVnzSvxBQIut6yRpVl0ISrXPwbZfxHhU</string>
     <string name="browser_key">AIzaSyAOgLYcZxKFUyjrFvv58zNg6_AViWAFwpc</string>
+    <string name="click_me">click me</string>
 </resources>
