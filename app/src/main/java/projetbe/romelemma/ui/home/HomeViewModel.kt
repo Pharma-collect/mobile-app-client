@@ -8,29 +8,25 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import projetbe.romelemma.data.User
-import projetbe.romelemma.services.MyRepository
+import projetbe.romelemma.dataClass.User
+import projetbe.romelemma.repository.MyRepository
+import projetbe.romelemma.services.FileService
 
 class HomeViewModel(
         application: Application
 ) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
-    private val id: String = "0"
-
-    private val _welcomeText = MutableLiveData<String>().apply {
-        value = "welcome back user $id"
-    }
+    private val _welcomeText = MutableLiveData<String>()
     val welcomeText: LiveData<String> = _welcomeText
 
     var user: User = User()
-    private val repository: MyRepository = MyRepository()
+    val fileService: FileService = FileService()
     private val context = getApplication<Application>().applicationContext
 
     init {
         launch{
-            Log.d("HomeVM", "launched new Coroutine")
-            repository.getUserInformations("38", context, user)
-            _welcomeText.value = "Welcome Back ${user.username}"
+            user = fileService.getData(context)
+            _welcomeText.value = "Welcome Back ${user.name} ${user.lastname}"
             Log.d("HomeVM", "Welcome Back ${user.username}")
         }
     }

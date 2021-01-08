@@ -1,4 +1,4 @@
-package projetbe.romelemma.data
+package projetbe.romelemma.dataClass
 
 import java.util.*
 
@@ -8,5 +8,6 @@ class User {
     var lastname:String? = null
     var birthDate: Date? = null
     var email:String? = null
-    var id:Int? = null
+    var id:String? = null
+    var token: String? = null
 }
