@@ -7,7 +7,6 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
-    dataBinding.enabled true
 
     defaultConfig {
         applicationId "projetbe.romelemma"
@@ -17,6 +16,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        dataBinding true
     }
 
     buildTypes {
@@ -54,12 +57,16 @@ dependencies {
 
     //UI
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+//    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
     //Volley
     implementation 'com.android.volley:volley:1.1.1'
 
     //Security
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
 
     //Google Map services
     implementation 'com.google.code.gson:gson:2.8.6'

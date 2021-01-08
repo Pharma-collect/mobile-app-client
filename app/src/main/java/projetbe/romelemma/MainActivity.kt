@@ -13,8 +13,6 @@ import projetbe.romelemma.ui.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var id: String
-    lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +26,5 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_prescriptions, R.id.navigation_map, R.id.navigation_profile))
         navView.setupWithNavController(navController)
 
-        var intent = intent
-        id = intent.getStringExtra("id").toString()
-        token = intent.getStringExtra("token").toString()
     }
 }

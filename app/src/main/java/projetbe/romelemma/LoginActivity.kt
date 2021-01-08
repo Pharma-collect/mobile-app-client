@@ -1,14 +1,12 @@
 package projetbe.romelemma
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,10 +16,15 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
-import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
 import org.json.JSONObject
+import projetbe.romelemma.repository.MyRepository
+import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
+import projetbe.romelemma.services.FileService
 
 class LoginActivity : AppCompatActivity() {
+
+    val repo: MyRepository = MyRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,53 +46,9 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun logRequest(
-            username: String,
-            password: String
-    ){
-        val requestQueue = Volley.newRequestQueue(this)
-        val url = "https://88-122-235-110.traefik.me:61001/api/user_client/loginClient"
-        val stringRequest: StringRequest =
-                object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
-                    override fun onResponse(response: String?) {
-                        var jsonSuccess = JSONObject(response)
-                        var jsonResponse = JSONObject(jsonSuccess["result"].toString())
-                        if (jsonSuccess["success"] == true) {
-                            intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            intent.putExtra("id", jsonResponse["id"].toString())
-                            intent.putExtra("token", jsonResponse["token"].toString())
-                            startActivity(intent)
-                        }else{
-                            Toast.makeText(this@LoginActivity, "Wrong username or password", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }, object : Response.ErrorListener {
-                    override fun onErrorResponse(error: VolleyError) {
-                        Toast.makeText(this@LoginActivity, error.toString(), Toast.LENGTH_LONG)
-                                .show()
-                    }
-                }) {
-                    override fun getHeaders(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["Host"] = "node"
-                        return params
-                    }
-
-                    override fun getParams(): Map<String, String> {
-                        val params: MutableMap<String, String> = HashMap()
-                        params["username"] = username
-                        params["password"] = password
-
-                        return params
-                    }
-                }
-        requestQueue.add(stringRequest)
-
-    }
-
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-        logRequest(etMail.text.toString(), etPassword.text.toString())
+        repo.logRequest(etMail.text.toString(), etPassword.text.toString(), this)
     }
 
     fun onSignUpClick(view: View){
