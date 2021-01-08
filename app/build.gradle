@@ -87,4 +87,9 @@ dependencies {
 
     //Round images view
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
+
+    //Shop
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.airbnb.android:lottie:3.5.0'
+
 }

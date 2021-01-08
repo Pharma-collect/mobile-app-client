@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_android"
+        android:enabled="true"
+        android:icon="@drawable/ic_cream"
+        android:title="@string/bottom_item1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_logo"
+        android:enabled="true"
+        android:icon="@drawable/ic_shopping_card_s"
+        android:title="@string/bottom_item2"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_landscape"
+        android:enabled="true"
+        android:icon="@drawable/profile"
+        android:title="@string/bottom_item3"
+        app:showAsAction="ifRoom" />
+</menu>

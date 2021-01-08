@@ -135,4 +135,17 @@
     <!-- Google Maps API -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBqVnzSvxBQIut6yRpVl0ISrXPwbZfxHhU</string>
     <string name="browser_key">AIzaSyAOgLYcZxKFUyjrFvv58zNg6_AViWAFwpc</string>
+
+
+
+    <!-- BOTTOM NAVIGATION VIEW -->
+    <string name="bottom_item1">Produits</string>
+    <string name="bottom_item2">Panier</string>
+    <string name="bottom_item3">Mon compte</string>
+
+    <!-- Product -->
+    <string name="add_to_card">Add to cart</string>
+    <string name="check_text">Votre article a bien été ajouté au panier</string>
+
+
 </resources>

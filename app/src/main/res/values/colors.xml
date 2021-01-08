@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#FFFFFFFF</color>
     <color name="background">#6E6E6E</color>
+    <color name="colorAccentDark">#D6D6D6</color>
+    <color name="background_light">#46a10a</color>
+
 </resources>
