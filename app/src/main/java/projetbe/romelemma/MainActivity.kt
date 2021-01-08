@@ -1,5 +1,6 @@
 package projetbe.romelemma
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.JsonToken
 import android.util.Log
@@ -32,5 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     fun onButtonClicked(view: View){
         Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onLogoutClicked(view: View){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
