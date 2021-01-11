@@ -23,10 +23,6 @@ class PrescriptionsFragment : Fragment() {
         prescriptionsViewModel =
             ViewModelProvider(this).get(PrescriptionsViewModel::class.java)
         val root = inflater.inflate(R.layout.prescriptions_fragment, container, false)
-        val textView: TextView = root.findViewById(R.id.tvHelloPrescription)
-        prescriptionsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
         return root
     }
 
