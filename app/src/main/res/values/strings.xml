@@ -67,7 +67,7 @@
     <string name="picture_select">First, select prescription to send</string>
     <string name="next">Next step</string>
     <string name="pharmaShow">Search</string>
-    <string name="name">Name</string>
+    <string name="Name">Name</string>
     <string name="select">Send to this one</string>
     <string name="first">1st (mandatory)</string>
     <string name="optionnal">Optionnal</string>
@@ -137,4 +137,6 @@
     <string name="browser_key">AIzaSyAOgLYcZxKFUyjrFvv58zNg6_AViWAFwpc</string>
     <string name="click_me">click me</string>
     <string name="app_name_phone">My Pharma</string>
+    <string name="lastname">Lastname</string>
+    <string name="name">Name</string>
 </resources>

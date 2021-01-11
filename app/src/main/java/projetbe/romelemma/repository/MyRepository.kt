@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -25,16 +26,17 @@ class MyRepository {
         userData: User
     ){
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "https://88-122-235-110.traefik.me:61001/api/user_client/getClientById"
+        val url = "https://88-122-235-110.traefik.me:61001/api/user_client/getUserClientById"
         val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String> {
+            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String> {
                 override fun onResponse(response: String) {
                     Log.d("RequestSuccessfull", response)
-                    var jsonResponse: JSONObject = JSONObject(response)
+                    var jsonResponse = JSONObject(response)
                     try {
                         userData.name = jsonResponse["name"].toString()
                         userData.lastname = jsonResponse["lastname"].toString()
                         userData.username = jsonResponse["username"].toString()
+                        userData.email = jsonResponse["mail"].toString()
                     } catch (e: JSONException) {
                         e.printStackTrace();
                     }

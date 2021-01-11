@@ -2,33 +2,46 @@ package projetbe.romelemma.ui.profile
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import projetbe.romelemma.dataClass.User
+import projetbe.romelemma.repository.MyRepository
 import projetbe.romelemma.services.FileService
+import java.io.File
 
 class ProfileViewModel(
     application: Application
 ) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Profile Fragment"
-    }
-    val text: LiveData<String> = _text
+    private var user: User = User()
+    private val userDataRetrieved: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var user: User = User()
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String> = _name
+
+    private val _lastName = MutableLiveData<String>()
+    val lastName: LiveData<String> = _lastName
+
+    private val _mail = MutableLiveData<String>()
+    val mail: LiveData<String> = _mail
+
     val fileService: FileService = FileService()
+    val repo: MyRepository = MyRepository()
     private val context = getApplication<Application>().applicationContext
 
     init {
-        launch{
+        launch {
             user = fileService.getData(context)
-            _text.value = "You are logged in as ${user.name} ${user.lastname}"
+        }
+        launch {
+            _name.value = user.name
+            _lastName.value = user.lastname
+            _mail.value = user.email
+        }
+        launch {
+            repo.getUserInformations(context, user)
         }
     }
 }
