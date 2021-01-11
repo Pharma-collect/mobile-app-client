@@ -27,8 +27,8 @@
         tools:layout="@layout/prescriptions_fragment" />
     <fragment
         android:id="@+id/navigation_shop"
-        android:name="projetbe.romelemma.ui.shop.ShopFragment"
+        android:name="projetbe.romelemma.ui.shop.AccueilShopFragment"
         android:label="@string/nav_shop"
-        tools:layout="@layout/shop_fragment" />
+        tools:layout="@layout/activity_shop" />
 
 </navigation>

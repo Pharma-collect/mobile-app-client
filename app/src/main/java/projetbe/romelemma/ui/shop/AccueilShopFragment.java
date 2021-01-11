@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +57,7 @@ import javax.net.ssl.X509TrustManager;
 import projetbe.romelemma.MainActivity;
 import projetbe.romelemma.R;
 
-public class AccueilShop extends Fragment {
+public class AccueilShopFragment extends Fragment {
 
     public JSONArray _produits;
     public Adapter adapter;
@@ -67,8 +69,8 @@ public class AccueilShop extends Fragment {
     private static Button confirmOrder;
 
 
-    public static AccueilShop newInstance() {
-        AccueilShop fragment = new AccueilShop();
+    public static AccueilShopFragment newInstance() {
+        AccueilShopFragment fragment = new AccueilShopFragment();
 
         return fragment;
     }
@@ -90,25 +92,56 @@ public class AccueilShop extends Fragment {
         final TextView titleShop = (TextView) root.findViewById(R.id.title);
        // setFont(titleShop, "QUICKSAND");
 
+        Button panier = root.findViewById(R.id.card);
+
+
+        TextView emptyCard = _view.findViewById(R.id.emptyCard);
+        emptyCard.setVisibility(View.INVISIBLE);
+
         Button back = root.findViewById(R.id.back);
+        back.setVisibility(View.INVISIBLE);
         back.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                getActivity().startActivity(myIntent);
+                back.setVisibility(View.INVISIBLE);
+                panier.setVisibility(View.VISIBLE);
+                confirmOrder.setVisibility(View.INVISIBLE);
+                titleShop.setText("Tous les produits");
+                _produitListe.setVisibility(View.VISIBLE);
+                try {
+                    displayProduct(_produits);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                emptyCard.setVisibility(View.INVISIBLE);
+
             }
         });
+
+        panier.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showCardView(titleShop, emptyCard);
+                panier.setVisibility(View.INVISIBLE);
+                back.setVisibility(View.VISIBLE);
+
+            }
+        });
+
 
         _produitListe = root.findViewById(R.id.list);
         _produitListe.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                panier.setVisibility(View.INVISIBLE);
                 ProductFragment fragment = ProductFragment.newInstance(_response, position);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.act_choice, fragment, "findThisFragment")
+                        .replace(R.id.accueilShop, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
 
@@ -116,75 +149,43 @@ public class AccueilShop extends Fragment {
         });
         confirmOrder = root.findViewById(R.id.confirmOrder);
 
+    }
 
-        final TextView emptyCard = _view.findViewById(R.id.emptyCard);
-        emptyCard.setVisibility(View.INVISIBLE);
+    private void showCardView(TextView titleShop, TextView emptyCard) {
 
-        bottomNavigationView = root.findViewById(R.id.activity_main_bottom_navigation);
+        titleShop.setText("Panier");
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @SuppressLint("ResourceType")
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_android:
-                                confirmOrder.setVisibility(View.INVISIBLE);
-                                titleShop.setText("Tous les produits");
-                                _produitListe.setVisibility(View.VISIBLE);
-                                try {
-                                    displayProduct(_produits);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                emptyCard.setVisibility(View.INVISIBLE);
+        final PanierClass panier= new PanierClass();
+        JSONArray _productsCart = panier.getListProducts();
 
-                                return true;
-                            case R.id.action_logo:
+        if(_productsCart.length() == 0){
+            confirmOrder.setVisibility(View.INVISIBLE);
+            emptyCard.setVisibility(View.VISIBLE);
 
-                                titleShop.setText("Panier");
+            try {
+                displayProduct(_productsCart);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                                final Panier panier= new Panier();
-                                JSONArray _productsCart = panier.getListProducts();
+        }else{
+            confirmOrder.setVisibility(View.VISIBLE);
+            try {
+                displayProduct(_productsCart);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                                if(_productsCart.length() == 0){
-                                    confirmOrder.setVisibility(View.INVISIBLE);
-                                    emptyCard.setVisibility(View.VISIBLE);
-
-                                    try {
-                                        displayProduct(_productsCart);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }else{
-                                    confirmOrder.setVisibility(View.VISIBLE);
-                                    try {
-                                        displayProduct(_productsCart);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    confirmOrder.setOnClickListener(new View.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(View v)
-                                        {
-                                            panier.confirmOrder(getContext());
-                                            _produitListe.setVisibility(View.INVISIBLE);
-                                        }
-                                    });
-                                }
-
-                                return true;
-                            case R.id.action_landscape:
-                                // TODO
-                                return true;
-                        }
-                        return false;
-                    }
-                });
-
+            confirmOrder.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    panier.confirmOrder(getContext());
+                    _produitListe.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 
     public void setFont(TextView textView, String fontName) {

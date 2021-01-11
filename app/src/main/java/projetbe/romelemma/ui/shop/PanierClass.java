@@ -1,8 +1,6 @@
 package projetbe.romelemma.ui.shop;
 
 import android.content.Context;
-import android.os.Handler;
-import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Panier {
+public class PanierClass {
 
     static private JSONArray _productsCart;
     static JSONObject commande = new JSONObject();
@@ -146,7 +144,7 @@ public class Panier {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                AccueilShop.orderIsCreate(response);
+                AccueilShopFragment.orderIsCreate(response);
 
             }
         }, new Response.ErrorListener() {

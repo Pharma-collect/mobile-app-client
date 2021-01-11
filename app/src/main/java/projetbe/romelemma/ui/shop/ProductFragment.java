@@ -1,6 +1,5 @@
 package projetbe.romelemma.ui.shop;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -75,7 +73,7 @@ public class ProductFragment extends Fragment {
             selectedProduct = produits.getJSONObject(positionProduit);
             title.setText(selectedProduct.getString("title"));
             description.setText(selectedProduct.getString("description"));
-            Bitmap bt = AccueilShop.getBitmapFromURL(selectedProduct.getString("image_url"));
+            Bitmap bt = AccueilShopFragment.getBitmapFromURL(selectedProduct.getString("image_url"));
 
             String priceS = selectedProduct.getString("price") + "€";
             price.setText("Prix à l'unité :   " + priceS);
@@ -116,7 +114,7 @@ public class ProductFragment extends Fragment {
                     }
                 }, time);
 
-                Panier _panier = new Panier();
+                PanierClass _panier = new PanierClass();
                 _panier.addProductToList(selectedProduct, _quantity);
             }
         });
@@ -124,9 +122,10 @@ public class ProductFragment extends Fragment {
         Button back = view.findViewById(R.id.buttonBack);
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AccueilShop fragment = AccueilShop.newInstance();
+                back.setVisibility(View.INVISIBLE);
+                AccueilShopFragment fragment = AccueilShopFragment.newInstance();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.act_choice, fragment, "findThisFragment")
+                        .replace(R.id.detailsProduit, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
             }
