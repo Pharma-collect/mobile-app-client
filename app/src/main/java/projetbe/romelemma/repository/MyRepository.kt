@@ -1,12 +1,16 @@
 package projetbe.romelemma.repository
 
+import android.R
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
+import com.android.volley.error.VolleyError
+import com.android.volley.request.SimpleMultiPartRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
@@ -14,6 +18,8 @@ import org.json.JSONObject
 import projetbe.romelemma.MainActivity
 import projetbe.romelemma.dataClass.User
 import projetbe.romelemma.services.FileService
+import java.io.File
+
 
 class MyRepository {
 
@@ -82,8 +88,9 @@ class MyRepository {
                         )
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
-                    }else{
-                        Toast.makeText(context, "Wrong username or password", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(context, "Wrong username or password", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
             }, object : Response.ErrorListener {
@@ -106,6 +113,38 @@ class MyRepository {
                 }
             }
         requestQueue.add(stringRequest)
+    }
+
+    fun pushPhoto(
+        user: User,
+        photoPath: String,
+        context: Context
+    ){
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "https://88-122-235-110.traefik.me:61001/api/uploadFile"
+        val smr = SimpleMultiPartRequest(
+            Request.Method.POST, url,
+            { response ->
+                Log.d("Response", response!!)
+                Toast.makeText(
+                    context, response,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        ) { error ->
+            Toast.makeText(
+                context,
+                error.message,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+//        smr.addStringParam("user_id", user.id)
+        smr.addFile("file", photoPath)
+        val mRequestQueue =
+            Volley.newRequestQueue(context)
+        mRequestQueue.add(smr)
+
+
     }
 
 }
