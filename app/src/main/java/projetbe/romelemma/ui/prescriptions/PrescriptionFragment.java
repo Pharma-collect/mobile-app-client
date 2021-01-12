@@ -17,12 +17,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import projetbe.romelemma.R;
-import projetbe.romelemma.ui.shop.AccueilShopFragment;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -42,8 +40,8 @@ public class PrescriptionFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.prescriptions_fragment, container, false);
 
-        Button scan = view.findViewById(R.id.importCamera);
-        scan.setOnClickListener(new View.OnClickListener() {
+        Button camera = view.findViewById(R.id.importCamera);
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -100,4 +98,6 @@ public class PrescriptionFragment  extends Fragment {
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RESULT_LOAD_IMAGE);
     }
+
+
 }
