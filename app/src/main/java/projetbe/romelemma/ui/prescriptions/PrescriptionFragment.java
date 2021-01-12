@@ -1,6 +1,8 @@
 package projetbe.romelemma.ui.prescriptions;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import projetbe.romelemma.MainActivity;
 import projetbe.romelemma.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -29,7 +32,10 @@ public class PrescriptionFragment  extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int RESULT_LOAD_IMAGE = 2 ;
 
+    Button sendPrescription;
     ImageView prescriptionThumbnail;
+    Bitmap prescriptionBtp;
+
     public static PrescriptionFragment newInstance() {
         PrescriptionFragment fragment = new PrescriptionFragment();
 
@@ -39,13 +45,29 @@ public class PrescriptionFragment  extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.prescriptions_fragment, container, false);
-
+        prescriptionThumbnail =view.findViewById(R.id.prescriptionPicture);
+        prescriptionThumbnail.setVisibility(View.INVISIBLE);
         Button camera = view.findViewById(R.id.importCamera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dispatchTakePictureIntent();
+                if(prescriptionThumbnail.getVisibility() == View.VISIBLE){
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Prescription already import");
+                    alertDialog.setMessage("Voulez vous supprimer la prescription existente et en importer une nouvelle ? ");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Supprimer et Importer",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dispatchTakePictureIntent();
+                                }
+                            });
+                    alertDialog.show();
+                } else if(prescriptionThumbnail.getVisibility() == View.INVISIBLE){
+                    prescriptionThumbnail.setVisibility(View.VISIBLE);
+                    dispatchTakePictureIntent();
+                }
+
             }
         });
 
@@ -53,12 +75,53 @@ public class PrescriptionFragment  extends Fragment {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                importFromGallery();
+                if(prescriptionThumbnail.getVisibility() == View.VISIBLE){
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Prescription already import");
+                    alertDialog.setMessage("Voulez vous supprimer la prescription existente et en importer une nouvelle ? ");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Supprimer et Importer",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    importFromGallery();                               }
+                            });
+                    alertDialog.show();
+                } else if(prescriptionThumbnail.getVisibility() == View.INVISIBLE){
+                    importFromGallery();
+                    prescriptionThumbnail.setVisibility(View.VISIBLE);
+                }
             }
         });
 
-        prescriptionThumbnail =view.findViewById(R.id.prescriptionPicture);
+
+        prescriptionThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                alertDialog.setTitle("Alert delete Prescription");
+                alertDialog.setMessage("Voulez vous supprimer cette image ?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Valider",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                prescriptionThumbnail.setImageBitmap(null);
+                                prescriptionThumbnail.setVisibility(View.INVISIBLE);
+                                sendPrescription.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+
+
+
+        sendPrescription = view.findViewById(R.id.sendPrescription);
+        sendPrescription.setVisibility(View.INVISIBLE);
+        sendPrescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         return view;
     }
@@ -76,19 +139,36 @@ public class PrescriptionFragment  extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            prescriptionThumbnail.setImageBitmap(imageBitmap);
+            prescriptionBtp = (Bitmap) extras.get("data");
+            if(prescriptionBtp !=null) {
+                prescriptionThumbnail.setImageBitmap(prescriptionBtp);
+                sendPrescription.setVisibility(View.VISIBLE);
+            }
         }
         else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                prescriptionThumbnail.setImageBitmap(selectedImage);
+                prescriptionBtp = BitmapFactory.decodeStream(imageStream);
+                if(prescriptionBtp != null){
+                    prescriptionThumbnail.setImageBitmap(prescriptionBtp);
+                    sendPrescription.setVisibility(View.VISIBLE);
+                }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(getContext(), "Error when importing the photo", Toast.LENGTH_LONG).show();
             }
+
+            /*
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContext().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();*/
+
         }
 
     }

@@ -56,6 +56,20 @@
             android:layout_below="@+id/scanTxt"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"/>
+
+        <Button
+            android:id="@+id/sendPrescription"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/prescriptionPicture"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:text="SEND"
+            android:textSize="9sp"
+            />
+
+
+
     </RelativeLayout>
 
 </layout>
