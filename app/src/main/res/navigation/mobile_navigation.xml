@@ -22,7 +22,7 @@
         tools:layout="@layout/profile_fragment" />
     <fragment
         android:id="@+id/navigation_prescriptions"
-        android:name="projetbe.romelemma.ui.prescriptions.PrescriptionsFragment"
+        android:name="projetbe.romelemma.ui.prescriptions.PrescriptionFragment"
         android:label="@string/nav_prescriptions"
         tools:layout="@layout/prescriptions_fragment" />
     <fragment
