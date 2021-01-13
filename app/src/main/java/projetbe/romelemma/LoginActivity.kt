@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import kotlinx.android.synthetic.main.activity_login.*
 import projetbe.romelemma.dataClass.User
 import projetbe.romelemma.repository.MyRepository
 import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-//        repo.logRequest(etMail.text.toString(), etPassword.text.toString(), this)
+        repo.logRequest(etMail.text.toString(), etPassword.text.toString(), this)
     }
 
     fun onSignUpClick(view: View){
