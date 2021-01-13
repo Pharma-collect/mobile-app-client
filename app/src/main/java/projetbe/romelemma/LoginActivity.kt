@@ -1,7 +1,9 @@
 package projetbe.romelemma
 
-import android.content.Context
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -10,20 +12,19 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
+import androidx.core.app.ActivityCompat
+import projetbe.romelemma.dataClass.User
 import projetbe.romelemma.repository.MyRepository
 import projetbe.romelemma.services.EnableHttps.handleSSLHandshake
-import projetbe.romelemma.services.FileService
+
 
 class LoginActivity : AppCompatActivity() {
 
+    val user = User()
+
     val repo: MyRepository = MyRepository()
+
+    val REQUEST_EXTERNAL_STORAGE: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         val btt = AnimationUtils.loadAnimation(this, R.anim.btt2)
         val layout = findViewById<ConstraintLayout>(R.id.layout)
         layout.startAnimation(btt)
+        verifyStoragePermissions(this)
     }
 
     private fun forgotPassword(username: EditText){
@@ -48,11 +50,29 @@ class LoginActivity : AppCompatActivity() {
 
     fun onValidateClicked(view: View) {
         handleSSLHandshake()
-        repo.logRequest(etMail.text.toString(), etPassword.text.toString(), this)
+//        repo.logRequest(etMail.text.toString(), etPassword.text.toString(), this)
     }
 
     fun onSignUpClick(view: View){
         intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
+    }
+
+    fun onTestClicked(view: View){
+        handleSSLHandshake()
+        repo.pushPhoto(user, "/storage/emulated/0/DCIM/Camera/IMG_20210112_161708.jpg", this)
+    }
+
+    fun verifyStoragePermissions(activity: Activity?) {
+        val permission = ActivityCompat.checkSelfPermission(
+            activity!!,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE),
+                REQUEST_EXTERNAL_STORAGE
+            )
+        }
     }
 }

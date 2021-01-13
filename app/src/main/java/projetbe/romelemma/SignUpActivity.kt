@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
@@ -97,7 +96,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         } else {
             password_hash = hash_bcrypt(s6)
             handleSSLHandshake()
-            registerClient(s1, s2, s3, s4, s5, password_hash, s8)
+//            registerClient(s1, s2, s3, s4, s5, password_hash, s8)
         }
     }
 
@@ -128,78 +127,78 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
     }
 
     //My request
-    private fun registerClient(
-        name: String,
-        lastname: String,
-        birth: String,
-        mail: String,
-        phone: String,
-        pswd: String,
-        username: String
-    ) {
-        val requestQueue = Volley.newRequestQueue(this)
-        val url = backUrl + "user_client/registerClient"
-        val stringRequest: StringRequest = object : StringRequest(
-            Method.POST, url,
-            Response.Listener { response ->
-                var jsonResponse: JSONObject? = null
-                var myObjAsString: String? = null
-                try {
-                    jsonResponse = JSONObject(response)
-                    myObjAsString = jsonResponse.getString("success")
-                    if (myObjAsString == "true") {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "Account successfully created",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        moveToLogin()
-                    } else {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "Error : ${jsonResponse.getString("error")}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.d("CreateAccError",response)
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            },
-            Response.ErrorListener { error ->
-                println("\n \n$error\n \n")
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Failed to create account, please try again",
-                    Toast.LENGTH_LONG
-                ).show()
-            }) {
-            /*
-             * Header of the request
-             */
-            override fun getHeaders(): Map<String, String> {
-                val params: MutableMap<String, String> = HashMap()
-                params["Host"] = "node"
-                return params
-            }
-
-            /*
-             * Parameters of the request
-             */
-            override fun getParams(): Map<String, String> {
-                val params: MutableMap<String, String> = HashMap()
-                params["name"] = name
-                params["lastname"] = lastname
-                params["birth"] = birth
-                params["mail"] = mail
-                params["phone"] = phone
-                params["password"] = pswd
-                params["username"] = username
-                return params
-            }
-        }
-        requestQueue.add(stringRequest)
-    }
+//    private fun registerClient(
+//        name: String,
+//        lastname: String,
+//        birth: String,
+//        mail: String,
+//        phone: String,
+//        pswd: String,
+//        username: String
+//    ) {
+//        val requestQueue = Volley.newRequestQueue(this)
+//        val url = backUrl + "user_client/registerClient"
+//        val stringRequest: StringRequest = object : StringRequest(
+//            Method.POST, url,
+//            Response.Listener { response ->
+//                var jsonResponse: JSONObject? = null
+//                var myObjAsString: String? = null
+//                try {
+//                    jsonResponse = JSONObject(response)
+//                    myObjAsString = jsonResponse.getString("success")
+//                    if (myObjAsString == "true") {
+//                        Toast.makeText(
+//                            this@SignUpActivity,
+//                            "Account successfully created",
+//                            Toast.LENGTH_LONG
+//                        ).show()
+//                        moveToLogin()
+//                    } else {
+//                        Toast.makeText(
+//                            this@SignUpActivity,
+//                            "Error : ${jsonResponse.getString("error")}",
+//                            Toast.LENGTH_LONG
+//                        ).show()
+//                        Log.d("CreateAccError",response)
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//            },
+//            Response.ErrorListener { error ->
+//                println("\n \n$error\n \n")
+//                Toast.makeText(
+//                    this@SignUpActivity,
+//                    "Failed to create account, please try again",
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            }) {
+//            /*
+//             * Header of the request
+//             */
+//            override fun getHeaders(): Map<String, String> {
+//                val params: MutableMap<String, String> = HashMap()
+//                params["Host"] = "node"
+//                return params
+//            }
+//
+//            /*
+//             * Parameters of the request
+//             */
+//            override fun getParams(): Map<String, String> {
+//                val params: MutableMap<String, String> = HashMap()
+//                params["name"] = name
+//                params["lastname"] = lastname
+//                params["birth"] = birth
+//                params["mail"] = mail
+//                params["phone"] = phone
+//                params["password"] = pswd
+//                params["username"] = username
+//                return params
+//            }
+//        }
+//        requestQueue.add(stringRequest)
+//    }
 
     fun onSignUpClicked(view: View){
         str_firstname = prenom!!.text.toString()
