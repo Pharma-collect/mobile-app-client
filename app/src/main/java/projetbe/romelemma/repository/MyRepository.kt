@@ -103,20 +103,17 @@ class MyRepository {
     }
 
 
-    fun pushPhoto(
-        user: User,
+    fun createPrescription(
+        userId: String,
+        pharmacyId: String,
         photoPath: String,
         context: Context
     ){
-        val url = "https://88-122-235-110.traefik.me:61001/api/upload"
+        val url = "https://88-122-235-110.traefik.me:61001/api/prescription/createPrescription"
         val smr = SimpleMultiPartRequest(
             Request.Method.POST, url,
             { response ->
                 Log.d("Response", response)
-                Toast.makeText(
-                    context, response,
-                    Toast.LENGTH_LONG
-                ).show()
             }
         ) { error ->
             Toast.makeText(
@@ -129,7 +126,10 @@ class MyRepository {
         headers["Host"] = "node"
         smr.headers = headers
         smr.addFile("file", photoPath)
-        smr.addStringParam("filetype", "prescription")
+        smr.addMultipartParam("id_client", "form-data", userId)
+        smr.addMultipartParam("id_pharmacy", "form-data", pharmacyId)
+        smr.addMultipartParam("detail", "form-data", "test")
+        Log.d("Request", smr.bodyContentType.toString())
         val mRequestQueue = Volley.newRequestQueue(context)
         mRequestQueue.add(smr)
 
