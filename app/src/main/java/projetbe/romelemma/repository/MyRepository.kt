@@ -108,11 +108,11 @@ class MyRepository {
         photoPath: String,
         context: Context
     ){
-        val url = "https://88-122-235-110.traefik.me:61001/api/uploadFile"
+        val url = "https://88-122-235-110.traefik.me:61001/api/upload"
         val smr = SimpleMultiPartRequest(
             Request.Method.POST, url,
             { response ->
-                Log.d("Response", response!!)
+                Log.d("Response", response)
                 Toast.makeText(
                     context, response,
                     Toast.LENGTH_LONG
@@ -125,10 +125,12 @@ class MyRepository {
                 Toast.LENGTH_LONG
             ).show()
         }
-//        smr.addStringParam("user_id", user.id)
+        val headers: MutableMap<String, String> = java.util.HashMap()
+        headers["Host"] = "node"
+        smr.headers = headers
         smr.addFile("file", photoPath)
-        val mRequestQueue =
-            Volley.newRequestQueue(context)
+        smr.addStringParam("filetype", "prescription")
+        val mRequestQueue = Volley.newRequestQueue(context)
         mRequestQueue.add(smr)
 
     }

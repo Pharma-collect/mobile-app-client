@@ -60,8 +60,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun onTestClicked(view: View){
+        Toast.makeText(
+            this,
+            "button Clicked",
+            Toast.LENGTH_LONG
+        ).show()
         handleSSLHandshake()
-        repo.pushPhoto(user, "/storage/emulated/0/DCIM/Camera/IMG_20210112_161708.jpg", this)
+        repo.pushPhoto(user, "/storage/self/primary/DCIM/Restored/FB_IMG_1505473671837.jpg", this)
     }
 
     fun verifyStoragePermissions(activity: Activity?) {
