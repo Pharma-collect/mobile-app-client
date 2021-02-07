@@ -39,7 +39,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
     private var str_pswd: String? = null
     private var str_confirm: String? = null
     private var str_username: String? = null
-    private var pattern: String = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%/^&+=_])(?=\\S+$).{5,}"
+    private var pattern: String = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
     var backUrl = "https://88-122-235-110.traefik.me:61001/api/"
 
 
@@ -85,7 +85,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         } else if (!Pattern.matches(pattern,s6)){
             Toast.makeText(
                 this@SignUpActivity,
-                "Password must contain : \n   * More than 6 characters \n   * At least one number \n   * At least one lower and upper character \n   * At least one special character \n   * No space or tab ",
+                "Password must contain : \n   * More than 8 characters \n   * At least one number \n   * At least one lower and upper character \n   * At least one special character \n   * No space or tab ",
                 Toast.LENGTH_LONG
             ).show()
         } else if (s6 != s7) {
