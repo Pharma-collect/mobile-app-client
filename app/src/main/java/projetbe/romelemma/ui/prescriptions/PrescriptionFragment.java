@@ -24,6 +24,7 @@ import java.io.InputStream;
 
 import projetbe.romelemma.MainActivity;
 import projetbe.romelemma.R;
+import projetbe.romelemma.repository.MyRepository;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,7 +36,7 @@ public class PrescriptionFragment  extends Fragment {
     Button sendPrescription;
     ImageView prescriptionThumbnail;
     Bitmap prescriptionBtp;
-
+    Uri imageUri;
     public static PrescriptionFragment newInstance() {
         PrescriptionFragment fragment = new PrescriptionFragment();
 
@@ -118,7 +119,8 @@ public class PrescriptionFragment  extends Fragment {
         sendPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyRepository repo = new MyRepository();
+                repo.createPrescription("23", "1", String.valueOf(imageUri), getContext());
             }
         });
 
@@ -147,7 +149,7 @@ public class PrescriptionFragment  extends Fragment {
         }
         else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             try {
-                final Uri imageUri = data.getData();
+                imageUri = data.getData();
                 final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                 prescriptionBtp = BitmapFactory.decodeStream(imageStream);
                 if(prescriptionBtp != null){
