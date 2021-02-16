@@ -2,6 +2,7 @@ package projetbe.romelemma.ui.prescriptions;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,7 +37,7 @@ public class PrescriptionFragment  extends Fragment {
     Button sendPrescription;
     ImageView prescriptionThumbnail;
     Bitmap prescriptionBtp;
-    Uri imageUri;
+    String imagePath;
     public static PrescriptionFragment newInstance() {
         PrescriptionFragment fragment = new PrescriptionFragment();
 
@@ -120,7 +121,7 @@ public class PrescriptionFragment  extends Fragment {
             @Override
             public void onClick(View v) {
                 MyRepository repo = new MyRepository();
-                repo.createPrescription("23", "1", String.valueOf(imageUri), getContext());
+                repo.createPrescription("23", "1", imagePath, getContext());
             }
         });
 
@@ -146,10 +147,12 @@ public class PrescriptionFragment  extends Fragment {
                 prescriptionThumbnail.setImageBitmap(prescriptionBtp);
                 sendPrescription.setVisibility(View.VISIBLE);
             }
+
         }
         else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             try {
-                imageUri = data.getData();
+                Uri imageUri = data.getData();
+                imagePath = getPath(getContext(), imageUri);
                 final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                 prescriptionBtp = BitmapFactory.decodeStream(imageStream);
                 if(prescriptionBtp != null){
@@ -173,6 +176,24 @@ public class PrescriptionFragment  extends Fragment {
 
         }
 
+
+    }
+
+    public static String getPath(Context context, Uri uri ) {
+        String result = null;
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver( ).query( uri, proj, null, null, null );
+        if(cursor != null){
+            if ( cursor.moveToFirst( ) ) {
+                int column_index = cursor.getColumnIndexOrThrow( proj[0] );
+                result = cursor.getString( column_index );
+            }
+            cursor.close( );
+        }
+        if(result == null) {
+            result = "Not found";
+        }
+        return result;
     }
 
     private void importFromGallery() {
