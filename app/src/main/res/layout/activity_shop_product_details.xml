@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/detailsProduit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D3ECE3">
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_return"
+        android:textSize="5dp" />
+
+    <ImageView
+        android:id="@+id/imageProduct"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/titleProduct"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_below="@+id/imageProduct"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="30dp"
+        android:textColor="#0D6433"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/descriptionProduct"
+        android:layout_below="@+id/titleProduct"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:textColor="#0D6433"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/priceProduct"
+        android:layout_below="@id/descriptionProduct"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_check"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="check.json"
+        android:layout_marginBottom="-15dp"
+        android:layout_above="@+id/commande"
+        app:lottie_loop="false" />
+
+    <TextView
+        android:id="@+id/checkText"
+        android:layout_below="@+id/lottie_check"
+        android:gravity="center"
+        android:text="@string/check_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+
+    <RelativeLayout
+        android:id="@+id/commande"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/quantity">
+
+            <Button
+                android:id="@+id/less"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_less_green"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/quantityLabel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/less"
+                android:layout_marginLeft="20dp"
+                android:text="1"
+                android:gravity="center"
+                />
+
+            <Button
+                android:id="@+id/more"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_more_green"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/quantityLabel"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="100dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/AddToCart"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:drawablePadding="-20dp"
+            android:paddingRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_add_to_cart"/>
+
+
+        <TextView
+            android:id="@+id/priceProducts"
+            android:textColor="@color/black"
+            android:paddingTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -26,7 +26,7 @@ class HomeViewModel(
     init {
         launch{
             user = fileService.getData(context)
-            _welcomeText.value = "Welcome Back ${user.name} ${user.lastname}"
+            _welcomeText.value = "${user.name} ${user.lastname}"
             Log.d("HomeVM", "Welcome Back ${user.username}")
         }
     }
