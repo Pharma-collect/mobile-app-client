@@ -6,8 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.error.VolleyError
+import com.android.volley.request.SimpleMultiPartRequest
+import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,8 +27,8 @@ class MyRepository {
     ){
         val requestQueue = Volley.newRequestQueue(context)
         val url = "https://88-122-235-110.traefik.me:61001/api/user_client/getClientById"
-        val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.GET, url, object : Response.Listener<String> {
+        val stringRequest: com.android.volley.request.StringRequest =
+            object : com.android.volley.request.StringRequest(Request.Method.GET, url, object : Response.Listener<String> {
                 override fun onResponse(response: String) {
                     Log.d("RequestSuccessfull", response)
                     var jsonResponse: JSONObject = JSONObject(response)
@@ -66,8 +67,8 @@ class MyRepository {
     ){
         val requestQueue = Volley.newRequestQueue(context)
         val url = "https://88-122-235-110.traefik.me:61001/api/user_client/loginClient"
-        val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
+        val stringRequest: com.android.volley.request.StringRequest =
+            object : com.android.volley.request.StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     var jsonSuccess = JSONObject(response)
                     var jsonResponse = JSONObject(jsonSuccess["result"].toString())
@@ -91,6 +92,7 @@ class MyRepository {
                     Toast.makeText(context, error.toString(), Toast.LENGTH_LONG)
                         .show()
                 }
+
             }) {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
@@ -106,6 +108,38 @@ class MyRepository {
                 }
             }
         requestQueue.add(stringRequest)
+    }
+
+    fun createPrescription(
+        userId: String,
+        pharmacyId: String,
+        photoPath: String,
+        context: Context
+    ){
+        val url = "https://88-122-235-110.traefik.me:61001/api/prescription/createPrescription"
+        val smr = SimpleMultiPartRequest(
+            Request.Method.POST, url,
+            { response ->
+                Log.d("Response", response)
+            }
+        ) { error ->
+            Toast.makeText(
+                context,
+                error.message,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val headers: MutableMap<String, String> = java.util.HashMap()
+        headers["Host"] = "node"
+        smr.headers = headers
+        smr.addFile("file", photoPath)
+        smr.addMultipartParam("id_client", "form-data", userId)
+        smr.addMultipartParam("id_pharmacy", "form-data", pharmacyId)
+        smr.addMultipartParam("detail", "form-data", "test")
+        Log.d("Request", smr.bodyContentType.toString())
+        val mRequestQueue = Volley.newRequestQueue(context)
+        mRequestQueue.add(smr)
+
     }
 
 }

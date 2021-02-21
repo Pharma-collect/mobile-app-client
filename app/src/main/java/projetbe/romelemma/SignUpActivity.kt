@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.request.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
