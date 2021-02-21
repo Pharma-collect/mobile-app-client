@@ -57,10 +57,8 @@ dependencies {
 
     //UI
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
-//    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
     //Volley
-    //implementation 'com.android.volley:volley:1.1.1'
     implementation 'dev.dworks.libs:volleyplus:+'
 
     //Security

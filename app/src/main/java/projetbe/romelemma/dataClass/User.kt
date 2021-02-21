@@ -10,4 +10,5 @@ class User {
     var email:String? = null
     var id:String? = null
     var token: String? = null
+    var phone: String? = null
 }
