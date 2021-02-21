@@ -20,12 +20,15 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import projetbe.romelemma.MainActivity;
 import projetbe.romelemma.R;
+import projetbe.romelemma.dataClass.User;
 import projetbe.romelemma.repository.MyRepository;
+import projetbe.romelemma.services.FileService;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -120,8 +123,10 @@ public class PrescriptionFragment  extends Fragment {
         sendPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FileService fileService = new FileService();
+                User user = fileService.getData(getContext());
                 MyRepository repo = new MyRepository();
-                repo.createPrescription("23", "1", imagePath, getContext());
+                repo.createPrescription(user.getId(), "1", imagePath, getContext());
             }
         });
 

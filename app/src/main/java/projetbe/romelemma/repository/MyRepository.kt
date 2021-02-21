@@ -129,11 +129,7 @@ class MyRepository {
                 Log.d("Response", response)
             }
         ) { error ->
-            Toast.makeText(
-                context,
-                error.message,
-                Toast.LENGTH_LONG
-            ).show()
+            Log.d("Response", "$error")
         }
         val headers: MutableMap<String, String> = java.util.HashMap()
         headers["Host"] = "node"
