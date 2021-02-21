@@ -249,7 +249,7 @@ public class AccueilShopFragment extends Fragment {
     public void getProductsByPharmacy(final String pharmacy_id) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        String url = "https://88-122-235-110.traefik.me:61001/api/product/getProductsByPharmacy";
+        String url = "https://88-122-235-110.traefik.me:61001/api/product/getProductsForShop";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
