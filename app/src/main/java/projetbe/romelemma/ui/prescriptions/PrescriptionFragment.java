@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import projetbe.romelemma.MainActivity;
 import projetbe.romelemma.R;
+import projetbe.romelemma.dataClass.User;
 import projetbe.romelemma.repository.MyRepository;
+import projetbe.romelemma.services.FileService;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -120,8 +128,10 @@ public class PrescriptionFragment  extends Fragment {
         sendPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FileService fileService = new FileService();
+                User user = fileService.getData(getContext());
                 MyRepository repo = new MyRepository();
-                repo.createPrescription("23", "1", imagePath, getContext());
+                repo.createPrescription(user.getId(), "1", imagePath, getContext());
             }
         });
 
@@ -132,10 +142,35 @@ public class PrescriptionFragment  extends Fragment {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getContext(),
+                        "com.mydomain.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+
+            //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
             // display error state to the user
         }
+    }
+
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "1mind_" + timeStamp + ".jpg";
+        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),  imageFileName);
+        //File photo = new File("/storage/emulated/0/DCIM/Camera/",imageFileName);
+        imagePath = photo.getAbsolutePath();
+
+        return photo;
     }
 
     @Override

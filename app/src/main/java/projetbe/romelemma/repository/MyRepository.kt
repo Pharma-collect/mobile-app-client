@@ -2,6 +2,7 @@ package projetbe.romelemma.repository
 
 import android.content.Context
 import android.content.Intent
+import android.util.JsonReader
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
@@ -24,18 +25,22 @@ class MyRepository {
     fun getUserInformations(
         context: Context,
         userData: User
-    ){
+    ): MutableMap<String,String> {
+        var result: MutableMap<String,String> = java.util.HashMap()
         val requestQueue = Volley.newRequestQueue(context)
-        val url = "https://88-122-235-110.traefik.me:61001/api/user_client/getClientById"
-        val stringRequest: com.android.volley.request.StringRequest =
-            object : com.android.volley.request.StringRequest(Request.Method.GET, url, object : Response.Listener<String> {
+        val url = "https://88-122-235-110.traefik.me:61001/api/user_client/getUserClientById"
+        val stringRequest: StringRequest =
+            object : StringRequest(Method.POST, url, object : Response.Listener<String> {
                 override fun onResponse(response: String) {
-                    Log.d("RequestSuccessfull", response)
+                    Log.d("Profile", response)
                     var jsonResponse: JSONObject = JSONObject(response)
+                    var jsonData: JSONObject = jsonResponse["result"] as JSONObject
                     try {
-                        userData.name = jsonResponse["name"].toString()
-                        userData.lastname = jsonResponse["lastname"].toString()
-                        userData.username = jsonResponse["username"].toString()
+                        result["name"] = jsonData["name"].toString()
+                        result["lastname"] = jsonData["lastname"].toString()
+                        result["username"] = jsonData["username"].toString()
+                        result["phone"] = jsonData["phone"].toString()
+                        result["mail"] = jsonData["mail"].toString()
                     } catch (e: JSONException) {
                         e.printStackTrace();
                     }
@@ -53,11 +58,12 @@ class MyRepository {
                 }
                 override fun getParams(): Map<String, String> {
                     val params: MutableMap<String, String> = java.util.HashMap()
-                    params["id"] = userData.id.toString()
+                    params["user_id"] = userData.id.toString()
                     return params
                 }
             }
         requestQueue.add(stringRequest)
+        return result
     }
 
     fun logRequest(
@@ -67,8 +73,8 @@ class MyRepository {
     ){
         val requestQueue = Volley.newRequestQueue(context)
         val url = "https://88-122-235-110.traefik.me:61001/api/user_client/loginClient"
-        val stringRequest: com.android.volley.request.StringRequest =
-            object : com.android.volley.request.StringRequest(Request.Method.POST, url, object : Response.Listener<String?> {
+        val stringRequest: StringRequest =
+            object : StringRequest(Method.POST, url, object : Response.Listener<String?> {
                 override fun onResponse(response: String?) {
                     var jsonSuccess = JSONObject(response)
                     var jsonResponse = JSONObject(jsonSuccess["result"].toString())
@@ -123,11 +129,7 @@ class MyRepository {
                 Log.d("Response", response)
             }
         ) { error ->
-            Toast.makeText(
-                context,
-                error.message,
-                Toast.LENGTH_LONG
-            ).show()
+            Log.d("Response", "$error")
         }
         val headers: MutableMap<String, String> = java.util.HashMap()
         headers["Host"] = "node"
