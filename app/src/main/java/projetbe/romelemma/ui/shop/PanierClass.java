@@ -17,6 +17,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import projetbe.romelemma.dataClass.User;
+import projetbe.romelemma.repository.MyRepository;
+import projetbe.romelemma.services.FileService;
+
 
 public class PanierClass {
 
@@ -129,12 +133,20 @@ public class PanierClass {
 
     void confirmOrder(Context context) {
         try {
-            createOrder(context, commande.getString("id_client"), commande.getString("id_pharmacy"), commande.getString("total_price"), commande.getJSONArray("products"), commande.getString("detail"));
+            User user = new User();
+            FileService fileService = new FileService();
+            user = fileService.getData(context);
+
+            MyRepository repo = new MyRepository();
+            Map<String, String> data = repo.getUserInformations(context, user);
+            createOrder(context, user.getId(), commande.getString("id_pharmacy"), commande.getString("total_price"), commande.getJSONArray("products"), commande.getString("detail"));
             commande = new JSONObject();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+
 
 
     public void createOrder(Context context, final String id_client, final String id_pharmacy, final String total_price, final JSONArray products, final String details) {

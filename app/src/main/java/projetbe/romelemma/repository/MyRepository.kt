@@ -53,7 +53,7 @@ class MyRepository {
                 override fun getHeaders(): Map<String, String> {
                     val params: MutableMap<String, String> = HashMap()
                     params["Host"] = "node"
-                    params["Authorization"] = userData.token.toString()
+                    //params["Authorization"] = userData.token.toString()
                     return params
                 }
                 override fun getParams(): Map<String, String> {
